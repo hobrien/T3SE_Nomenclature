@@ -23,6 +23,10 @@ Prerequisites:
  
 Scripts:
 
+ ConvertSeq.pl (script to convert among sequence and alignment file formats)
+ 
+ ParseT3SEdb.pl (parses T3SS-Hops-noformat.txt and extracts DNA or AA sequences)
+ 
  ParseTblastN.pl (takes blast output and genome sequences and extracts corresponding ORFs / psuedogenes)
  
  T3SEaln.pl (takes fasta file of new sequences from a gene family, adds it to fasta file of reference sequences and builds tree)
@@ -31,7 +35,12 @@ Scripts:
 
 Datafiles:
 
+ NonT3SE_homologs.fa (Homologs of T3SEs that need to be added to query set)
+ 
  Psy108.fa (draft genome sequences from a T3SE rich strain for testing purposes)
  
  T3SE_allAA.fa (reference amino acid sequences to use as query for tBlastn)
+ 
+ T3SS-Hops-noformat.txt (T3SE db downloaded from http://pseudomonas-syringae.org/T3SS-Hops-noformat.xls, 
+ converted to tab delimited with Unix/LF linebreaks)
  
