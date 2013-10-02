@@ -46,6 +46,11 @@ use Getopt::Long;
 use File::Basename;
 use autodie qw(open close);
 
+
+# Hard-coded hash of sequences that are messed up in the database and should not be included
+# in the query set used to identify novel T3SE homologs
+my %excluded_seqs = ( 'PlaMAFF302278_hopAE1' => 1 );
+
 my $aa = 0;
 my $t3se_seq_dir;
 my $db_name;
@@ -106,17 +111,19 @@ foreach(@t3ses) {
     $fam =~ s/[\d'-]//g;
     $outfile = $t3se_seq_dir . $fam . ".fa";
   }
+  my $header = $fields[4] . $fields[5] . "_" . $fields[3];
   if ( $aa ) {
     unless ($fields[16] =~ /^[ACGT]+$/i or $fields[16] =~ /\W/ or $fields[16] =~ /^$/ ) {
+      if ( $excluded_seqs{$header} ) { next; }   #skip seqs in excluded set
       open(my $fh, ">>", $outfile);
-      print $fh ">", $fields[4], $fields[5], "_", $fields[3], "\n", uc($fields[16]), "\n";
+      print $fh ">$header\n", uc($fields[16]), "\n";
       close($fh);
     }
   }
   else {
     if ($fields[15] =~ /^[ACGT]+$/i) {
       open(my $fh, ">>", $outfile);
-      print $fh ">", $fields[4], $fields[5], "_", $fields[3], "\n", uc($fields[15]), "\n";
+      print $fh ">$header\n", uc($fields[15]), "\n";
       close($fh);
     }
   }
