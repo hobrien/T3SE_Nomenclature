@@ -99,6 +99,7 @@ while (<$infile>){
   }
   push(@t3ses, $_);
 }
+close($infile);
 
 foreach(@t3ses) {
   my @fields = split("\t", $_);
@@ -110,6 +111,7 @@ foreach(@t3ses) {
     my $fam = $fields[3];
     $fam =~ s/[\d'-]//g;
     $outfile = $t3se_seq_dir . $fam . ".fa";
+    if ( $_ =~ /frameshift/i ) { $outfile =~ s/\.fa/_FS.fa/; }
   }
   my $header = $fields[4] . $fields[5] . "_" . $fields[3];
   $header =~ s/\(.*\)//g;
