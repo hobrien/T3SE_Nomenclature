@@ -163,7 +163,7 @@ foreach my $t3se ( keys %t3se_homo ) {
   #Extract ORF subsequence and reduce strings of Ns to 5 or less, check for frameshifts and premature stops and write to file
   my $outstring = $seq->subseq($start, $stop);
   $outstring =~ s/(NNN)+/NNN/g;
-  $t3se =~ s/-\d+//;                 #Remove -1, -2 etc suffix from family name
+  $t3se =~ s/[-\d]+//;                 #Remove subfamily and allele number from family name
   my $pseudo = CheckORF($outstring);
   if ( $pseudo ) {                   #Format sequence names to reflect pseudogene status
     if ( $pseudo =~ /N-terminal/ ) { $id .= "_N"; }
@@ -319,7 +319,7 @@ sub AdjustRange {
 sub GetFamily {
   my $hsp = shift;
   my $location = $hsp->location->seq_id;
-  unless ( $location =~ /((hop[A-Z]{1,3})|(avr[A-Z]{1,3})|(mltB)|(LysM)|(PSPTO)|(hrp[A-Z]))/i) { 
+  unless ( $location =~ /((hop[A-Z]{1,3}\d?)|(avr[A-Z]{1,3}\d?)|(mltB)|(LysM)|(PSPTO)|(hrp[A-Z]\d?))/i) { 
     die "$location not parsed correctly\n" ;
   }
   return $1;
