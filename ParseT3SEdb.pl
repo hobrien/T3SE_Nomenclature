@@ -91,7 +91,7 @@ while (<$infile>){
     $header = $_;
     next;
   }
-  $_ =~ s/[" ()]//g;
+  $_ =~ s/[" ]//g;
   $_ =~ /^(\d+)/;
   unless ( $1 and $1 == scalar(@t3ses) + 1 ) {
     $t3ses[-1] .= $_;
@@ -112,6 +112,7 @@ foreach(@t3ses) {
     $outfile = $t3se_seq_dir . $fam . ".fa";
   }
   my $header = $fields[4] . $fields[5] . "_" . $fields[3];
+  $header =~ s/\(.*\)//g;
   if ( $aa ) {
     unless ($fields[16] =~ /^[ACGT]+$/i or $fields[16] =~ /\W/ or $fields[16] =~ /^$/ ) {
       if ( $excluded_seqs{$header} ) { next; }   #skip seqs in excluded set
