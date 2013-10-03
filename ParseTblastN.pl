@@ -165,15 +165,15 @@ foreach my $t3se ( keys %t3se_homo ) {
   $outstring =~ s/(NNN)+/NNN/g;
   $t3se =~ s/[-\d]+//;                 #Remove subfamily and allele number from family name
   my $pseudo = CheckORF($outstring);
+  my $outseq_filename = $t3se_seq_dir . $t3se . '.fa';
   if ( $pseudo ) {                   #Format sequence names to reflect pseudogene status
     if ( $pseudo =~ /N-terminal/ ) { $id .= "_N"; }
     elsif ( $pseudo =~ /C-terminal/ ) { $id .= "_C"; }
     elsif ( $pseudo =~ /internal fragment/ ) { $id .= "_internal_frag"; }
-    if ( $pseudo =~ /Frameshift/ ) { $outfilename =~ s/\.fa/_FS.fa/; $id .= "_FS"; }
+    if ( $pseudo =~ /Frameshift/ ) { $outseq_filename =~ s/\.fa/_FS.fa/; $id .= "_FS"; }
     elsif ( $pseudo =~ /stop codons/ ) { $id .= "'"; }
   }
 
-  my $outseq_filename = $t3se_seq_dir . $t3se . '.fa';
   my $outseq_file = Bio::SeqIO->new('-file' => ">>$outseq_filename",
                              '-format' => 'fasta') or die "could not open seq file $outseq_filename\n";
   my $outseq = Bio::Seq->new(-seq => $outstring,
