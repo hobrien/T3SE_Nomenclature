@@ -21,6 +21,8 @@ Prerequisites:
  
  ggplot2 (http://ggplot2.org/; R library)
  
+ 
+ 
 Scripts:
 
  ConvertSeq.pl (script to convert among sequence and alignment file formats)
@@ -36,6 +38,8 @@ Scripts:
  T3SEaln.pl (takes fasta file of new sequences from a gene family, adds it to fasta file of reference sequences and builds tree)
  
  translatorx_Local.pl (see Prerequisites above)
+ 
+ 
 
 Datafiles:
 
@@ -51,6 +55,8 @@ Datafiles:
  PsyMLST.fa (Alignment of MLST genes for SOME of the strains in the database (it would be more useful if more were added))
 
  PsyMLSTref.fa (reference MLST sequences to blast against genome when using MLST.pl)
+
+
 
 Workflow:
 perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt -o T3SEaa.fa -a
@@ -78,6 +84,8 @@ T3SEaln.pl -i T3SE
 Calculate distances in Mega for effector and for MLST genes (see below)
 
 perl MakeDistPlot.pl -m PsyMLSTdist.txt -t DNA/Distances/T3SE.dist.txt
+
+
 
 Running MEGA:
 
