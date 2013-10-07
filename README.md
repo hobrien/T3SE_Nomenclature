@@ -82,7 +82,7 @@ mafft --add Psy108_mlst.fa PsyMLST.fa >PsyMLST_aln.fa
 
 perl ConvertSeq.pl -i PsyMLST_aln.fa -f mega 
  
-For each T3SE family:
+###For each T3SE family:###
 
 T3SEaln.pl -i T3SE
 
