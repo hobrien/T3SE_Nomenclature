@@ -130,10 +130,12 @@ sub ConvertSeqs {
                            -file   => $in_name);
     my $outfile;
     if ( $out_format =~ /phy/i and $out_format =~ /ext/i ) { open(OUT, ">>$out_name"); } #extended phylip format
+    elsif ( $out_format =~ /mega/i ) { open(OUT, ">>$out_name"); } #mega format
     else {  $outfile = Bio::AlignIO->new(-file => ">>$out_name",
                                         '-format' => $out_format);}
     while ( my $aln = $infile->next_aln ) {
       if ( $out_format =~ /phy/i and $out_format =~ /ext/i ) { WritePhylipExt($aln); }
+      elsif ( $out_format =~ /mega/i ) { WriteMega($aln, $out_name); }
       else { $outfile->write_aln($aln); }
     }
   }
@@ -170,6 +172,21 @@ sub GetFormat {
   return $format;
 }
 
+
+
+sub WriteSeqs {
+  my $aln = shift;
+  my $outfile = Bio::SeqIO->new('-file' => ">$outfilename",
+         '-format' => $outformat) or die "could not open seq file $outfilename\n\n$usage";
+  foreach ( $aln->each_seq) {
+    my $seq = $_;
+    my $string = $seq->seq;
+    #$string =~ s/-//g;
+    $seq->seq($string);
+    $outfile->write_seq($seq);
+  }
+}
+
 sub WritePhylipExt {
   my $aln = shift;
   my @seqs = $aln->each_seq;
@@ -185,16 +202,18 @@ sub WritePhylipExt {
 }
 
 
-sub WriteSeqs {
+sub WriteMega {
   my $aln = shift;
-  my $outfile = Bio::SeqIO->new('-file' => ">$outfilename",
-         '-format' => $outformat) or die "could not open seq file $outfilename\n\n$usage";
-  foreach ( $aln->each_seq) {
-    my $seq = $_;
-    my $string = $seq->seq;
-    #$string =~ s/-//g;
-    $seq->seq($string);
-    $outfile->write_seq($seq);
+  my $outfilename = shift;
+  my @seqs = $aln->each_seq;
+  print OUT "#Mega\n!Title $outfilename;\n\n";
+  my @name_lengths;
+  foreach (@seqs) { push(@name_lengths, length($_->display_id)); }
+  my $name_size = max(@name_lengths) + 1;
+  if ( $name_size < 10 ) { $name_size = 10; }
+  foreach (@seqs) {
+    printf OUT "#%-*s",  $name_size, $_->display_id;
+    print OUT $_->seq, "\n";
   }
 }
 
