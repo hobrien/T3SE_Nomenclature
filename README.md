@@ -54,18 +54,29 @@ Datafiles:
 
 Workflow:
 perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt -o T3SEaa.fa -a
+
 cat NonT3SE_homologs.fa >> T3SEaa.fa
+
 perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt
+
 makeblastdb -in Psy108 -dbtype nucl
+
 tblastn -query T3SEaa.fa -db Psy108 -evalue 1e-20 -outfmt 6 -num_threads 6 -out <blast_table>
+
 perl ParseTblastN.pl -i Psy108_t3se.bl -s Psy108.fa
+
 perl MLST.pl -i Psy108.fa -m PSYMLSTref.fa
+
 mafft --add Psy108_mlst.fa PsyMLST.fa >PsyMLST_aln.fa
+
 perl ConvertSeq.pl -i PsyMLST_aln.fa -f mega 
  
 For each T3SE family:
+
 T3SEaln.pl -i T3SE
+
 Calculate distances in Mega for effector and for MLST genes (see below)
+
 perl MakeDistPlot.pl -m PsyMLSTdist.txt -t DNA/Distances/T3SE.dist.txt
 
 Running MEGA:
@@ -81,22 +92,35 @@ add that in or skip the part of T3SEaln.pl that adds frameshifted sequences to t
 
 Current Steps:
 Open Mega file in MEGA. Select "File"->"Open A File/Session..."
+
 Select file then select "OK"
+
 Select "Nucleotide Sequences" and "OK" 
+
 Select "Yes" when asked if sequences are protein coding
+
 Select "Genetic Code" "Standard" or "Bacterial Plastid" and select "OK" (the only differences is the permitted start codons)
+
 Return to main window and select Distance->Compute Pairwise Distances. Select "Yes"
+
 Change "Substitution Type" to "Syn-Nonsynonymous"
+
 Change "Gaps/Missing Data Treatment" to "Pairwise Deletion"
+
 Change "Substitutions to Include" to "s: Synonymous only"
 
 Other parameters can be set to default:
+
 "Variance Estimation Method": "None" 
+
 "Model/Method": "Nei-Gojobori method (Jukes-Cantor)"
 
 Select "Compute".
+
 Select "File"->"Export/Print Distances" then change "Export Type" from "Matrix" to "Column".
+
 "Output Format" should be "CSV: Comma-separated file"
+
 Select "Print/Save Matrix" then save the resulting window
 
 
