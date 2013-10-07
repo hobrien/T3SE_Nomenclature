@@ -1,6 +1,6 @@
-T3SE_Nomenclature: Scripts and datafiles necessary to run the Type 3 Secreted Effector Pipeline that I've developed.
-====================================================================================================================
-
+T3SE_Nomenclature: 
+=================
+*Scripts and datafiles necessary to run the Type 3 Secreted Effector Pipeline that I've developed.*
 Prerequisites:
 --------------
 
