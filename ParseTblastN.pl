@@ -91,7 +91,7 @@ GetOptions( 'seqfilename=s' => \$seqfilename,
 	        'infilename=s' => \$infilename,
 	        'outfilename=s' => \$outfilename,
 	        't3se_seq_dir=s' => \$t3se_seq_dir,
-	        'name=s' => \$t3se_seq_dir
+	        'name=s' => \$strain_name
 	      )
 or die "failure to communicate\n";
  
