@@ -41,11 +41,12 @@ Tree stats stored in <outputdir>/DNA/Tree_stats
 
 use warnings;
 use strict;
+use Getopt::Long;
+use File::Basename;
+use autodie qw(open close);
 
 my $outputdir;
 my $infilename;
-use Getopt::Long;
-use File::Basename;
 
 GetOptions( 'infilename=s' => \$infilename,
 	        'outfilename=s' => \$outputdir
