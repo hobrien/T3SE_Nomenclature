@@ -4,6 +4,7 @@ T3SE_Nomenclature
 Scripts and datafiles necessary to run the Type 3 Secreted Effector Pipeline that I've developed.
 
 Prerequisites:
+--------------
 
  blast+ (http://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
  
@@ -24,6 +25,7 @@ Prerequisites:
  
  
 Scripts:
+--------
 
  ConvertSeq.pl (script to convert among sequence and alignment file formats)
  
@@ -42,6 +44,7 @@ Scripts:
  
 
 Datafiles:
+----------
 
  NonT3SE_homologs.fa (Homologs of T3SEs that need to be added to query set)
  
@@ -59,6 +62,8 @@ Datafiles:
 
 
 Workflow:
+---------
+
 perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt -o T3SEaa.fa -a
 
 cat NonT3SE_homologs.fa >> T3SEaa.fa
@@ -88,6 +93,7 @@ perl MakeDistPlot.pl -m PsyMLSTdist.txt -t DNA/Distances/T3SE.dist.txt
 
 
 Running MEGA:
+-------------
 
 Currently, this step hasn't been automated. It is probably possible to calculate synonymous
 distances in R, but I only know how to do total genetic distances. There's also something
