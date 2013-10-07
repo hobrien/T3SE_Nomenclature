@@ -64,7 +64,7 @@ Datafiles:
 Workflow:
 ---------
 
-perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt -o T3SEaa.fa -a
+ perl ParseT3SEdb.pl -d T3SS-Hops-noformat.txt -o T3SEaa.fa -a
 
 cat NonT3SE_homologs.fa >> T3SEaa.fa
 
